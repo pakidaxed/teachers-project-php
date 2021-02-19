@@ -1,0 +1,12 @@
+{
+    "name": "pakidaxed/nfq-internship",
+    "description": "NFQ Internship task",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tomas Jucius",
+            "email": "jucius.tomas@gmail.com"
+        }
+    ],
+    "require": {}
+}
