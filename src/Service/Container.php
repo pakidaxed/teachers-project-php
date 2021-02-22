@@ -9,6 +9,7 @@ class Container
     private array $config;
     private ?\PDO $pdo = null;
     private ?ProjectManager $projectManager = null;
+    private ?GroupsManager $groupsManager = null;
 
     public function __construct(array $config)
     {
@@ -37,6 +38,15 @@ class Container
         }
 
         return $this->projectManager;
+    }
+
+    public function getGroupsManager(): ?GroupsManager
+    {
+        if ($this->groupsManager === null) {
+            $this->groupsManager = new GroupsManager($this->getPDO());
+        }
+
+        return $this->groupsManager;
     }
 
 }

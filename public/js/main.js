@@ -36,6 +36,7 @@ function checkForProjects() {
                 document.querySelector('#projects_list')
                     .addEventListener("click", (e) => {
                         productIdHidden.value = e.target.id
+                        theForm.action = 'project.php?id=' + e.target.id
                         theForm.submit()
                     })
             }

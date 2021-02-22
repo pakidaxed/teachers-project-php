@@ -1,3 +1,15 @@
+<?php
+
+require './../bootstrap.php';
+
+use Service\Container;
+
+$container = new Container($config);
+$projectManager = $container->getProjectManager();
+$theProject = $projectManager->getProject($_GET['id']) ?: header('Location: /');
+$groupsManager = $container->getGroupsManager();
+$groups = $groupsManager->getGroups($theProject->getProjectId());
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,10 +23,35 @@
 </head>
 <body>
 <div class="container">
-    <h1><span class="text-black">Project</span> Project name</h1>
-    <p>Number of groups: <span class="text-red">4</span></p>
-    <p>Students per group: <span class="text-red">6</span></p>
-    WIGLW WIGLE
+    <div class="project-info">
+        <h1><span class="text-black">Project</span> <?= $theProject->getName() ?></h1>
+        <p>Number of groups: <span class="text-red"><?= $theProject->getGroupsTotal() ?></span></p>
+        <p>Students per group: <span class="text-red"><?= $theProject->getStudentsPerGroup() ?></span></p>
+    </div>
+    <div class="students-list">
+        <h1>Students</h1>
+        <div class="groups-control">
+            <div class="student-box">
+                <div class="box-header">
+                    Student Full name
+                </div>
+                ...
+            </div>
+        </div>
+    </div>
+    <div class="groups">
+        <h1>Groups</h1>
+        <div class="groups-control">
+            <?php foreach ($groups as $group): ?>
+                <div class="group-box">
+                    <div class="box-header">
+                        <?= $group['name'] ?>
+                    </div>
+                    <?= $group['student_id'] ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </div>
 
 </body>
