@@ -3,6 +3,8 @@
 namespace Service;
 
 
+use Model\Project;
+
 class ProjectManager
 {
     private \PDO $pdo;
@@ -39,10 +41,31 @@ class ProjectManager
         $lastId = $this->pdo->lastInsertId();
 
         if ($result) {
+            for ($i = 1; $i <= $data['groups_total']; $i++) {
+                $stmt = $this->pdo->prepare("INSERT INTO Grouped ( name, project_id) VALUES (:name, :project_id)");
+                $groupName = 'Group #' . $i;
+                $stmt->bindParam(':name', $groupName);
+                $stmt->bindParam(':project_id', $lastId);
+                $stmt->execute();
+            }
             echo json_encode(['message' => 'Added']);
         } else {
             echo json_encode(['message' => 'Failed']);
         }
     }
+
+    public function getProject(string $id): ?Project
+    {
+        if (is_numeric($id)) {
+            $stmt = $this->pdo->prepare("SELECT * FROM Projects WHERE id = $id");
+            $stmt->execute();
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($result) return new Project($result);
+        }
+
+        return null;
+    }
+
 
 }

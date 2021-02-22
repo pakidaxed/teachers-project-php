@@ -171,3 +171,39 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     justify-content: space-evenly;
 }
+
+.text-black {
+    color: black;
+}
+
+.text-red {
+    color: crimson;
+}
+
+.groups-control {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.group-box {
+    max-width: 400px;
+    border: 1px solid crimson;
+}
+
+.group-box {
+    max-width: 400px;
+    border: 1px solid crimson;
+}
+
+.student-box {
+    width: 100%;
+    border: 1px solid crimson;
+}
+
+.box-header {
+    background-color: crimson;
+    color: white;
+    padding: 5px 10px;
+    font-size: 20px;
+}
