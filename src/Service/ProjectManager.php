@@ -39,6 +39,13 @@ class ProjectManager
         $lastId = $this->pdo->lastInsertId();
 
         if ($result) {
+            for ($i = 1; $i <= $data['groups_total']; $i++) {
+                $stmt = $this->pdo->prepare("INSERT INTO Grouped (name, project_id) VALUES (:name, :project_id)");
+                $groupName = 'Group #' . $i;
+                $stmt->bindParam(':name', $groupName);
+                $stmt->bindParam(':project_id', $lastId);
+                for ($j = 1; $j <= $data['students_per_group']; $j++) $stmt->execute();
+            }
             echo json_encode(['message' => 'Added']);
         } else {
             echo json_encode(['message' => 'Failed']);
