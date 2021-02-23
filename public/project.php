@@ -16,6 +16,12 @@ if (isset($_POST) && isset($_POST['new_student_name'])) $studentManager->addNewS
 if (isset($_POST) && isset($_POST['student_id'])) $studentManager->assignStudent($_POST);
 if (isset($_GET) && isset($_GET['action']) && ($_GET['action'] === 'delete') && isset($_GET['student_id'])) $studentManager->deleteStudent($_GET['student_id']);
 $students = $studentManager->getStudents($theProject->getProjectId());
+$assignedStudents = array_filter($students, function ($student) {
+    return $student['group_id'];
+});
+$availableStudents = array_filter($students, function ($student) {
+    return !$student['group_id'];
+});
 
 ?>
 <!doctype html>
@@ -60,7 +66,7 @@ $students = $studentManager->getStudents($theProject->getProjectId());
                 <tr>
                     <td><?= htmlspecialchars($student['name']) ?></td>
 
-                    <td><?= $groupsManager->getGroupedName($student['group_id']) ?: '-' ?></td>
+                    <td><?= $groupsManager->getGroupName($student['group_id']) ?: '-' ?></td>
                     <td>
                         <a href="<?= $_SERVER['REQUEST_URI'] ?>&action=delete&student_id=<?= $student['id'] ?>">Delete</a>
                     </td>
@@ -80,12 +86,6 @@ $students = $studentManager->getStudents($theProject->getProjectId());
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $assignedStudents = array_filter($students, function ($student) {
-                        return $student['group_id'];
-                    }); ?>
-                    <?php $availableStudents = array_filter($students, function ($student) {
-                        return !$student['group_id'];
-                    }); ?>
                     <?php for ($i = 1; $i <= $theProject->getStudentsPerGroup(); $i++): ?>
                         <tr>
                             <td>
