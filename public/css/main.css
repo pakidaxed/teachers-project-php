@@ -196,14 +196,52 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid crimson;
 }
 
-.student-box {
-    width: 100%;
-    border: 1px solid crimson;
-}
 
 .box-header {
     background-color: crimson;
     color: white;
     padding: 5px 10px;
     font-size: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    padding: 15px;
+    background-color: crimson;
+    color: white;
+    font-size: 20px;
+}
+td {
+    padding: 10px;
+    border: 1px solid crimson;
+}
+td:first-child {
+    width: 70%;
+}
+td:nth-child(n+2), th:nth-child(n+2) {
+    text-align: center;
+
+}
+
+.d-inline {
+    display: inline;
+}
+
+.d-block {
+    display: block;
+}
+
+.add-new-student {
+    margin-bottom: 20px;
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+}
+.add-new-student button {
+    margin-top: 10px;
+    font-size: 25px;
+
 }

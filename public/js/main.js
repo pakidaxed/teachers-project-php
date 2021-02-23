@@ -48,6 +48,11 @@ function closeModal() {
     document.getElementById('projects').reset()
 }
 
+function openAddNewStudent() {
+    document.getElementById('new_student').style.display = 'inline-flex'
+    document.getElementById('student_name').reset()
+}
+
 const theForm = document.getElementById('submitBtn')
 theForm.addEventListener('click', e => {
     e.preventDefault()

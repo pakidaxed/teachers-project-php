@@ -10,6 +10,7 @@ class Container
     private ?\PDO $pdo = null;
     private ?ProjectManager $projectManager = null;
     private ?GroupsManager $groupsManager = null;
+    private ?StudentManager $studentManager = null;
 
     public function __construct(array $config)
     {
@@ -47,6 +48,15 @@ class Container
         }
 
         return $this->groupsManager;
+    }
+
+    public function getStudentManager(): ?StudentManager
+    {
+        if ($this->studentManager === null) {
+            $this->studentManager = new StudentManager($this->getPDO());
+        }
+
+        return $this->studentManager;
     }
 
 }
