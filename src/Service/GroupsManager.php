@@ -15,7 +15,7 @@ class GroupsManager
 
     public function getGroups(int $project_id): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Grouped WHERE project_id = $project_id");
+        $stmt = $this->pdo->prepare("SELECT * FROM project_groups WHERE project_id = $project_id");
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -24,7 +24,7 @@ class GroupsManager
     public function getGroupedName(?int $id): ?string
     {
         if (!$id) return null;
-        $stmt = $this->pdo->prepare("SELECT name FROM Grouped WHERE id = $id");
+        $stmt = $this->pdo->prepare("SELECT name FROM project_groups WHERE id = $id");
         $stmt->execute();
 
         return $stmt->fetchColumn() ?: null;

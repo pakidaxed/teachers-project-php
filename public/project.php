@@ -121,6 +121,6 @@ $students = $studentManager->getStudents($theProject->getProjectId());
             <?php endforeach; ?>
         </div>
     </div>
-    <footer>(c) Tomas Jucius 2020</footer>
+    <footer>(c) Tomas Jucius 2021</footer>
 </body>
 </html>

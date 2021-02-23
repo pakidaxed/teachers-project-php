@@ -21,7 +21,7 @@ class ProjectManager
      */
     public function checkForProjects(): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Projects ORDER BY id DESC ");
+        $stmt = $this->pdo->prepare("SELECT * FROM projects ORDER BY id DESC ");
         $stmt->execute();
 
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ class ProjectManager
 
     public function addProject($data): void
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Projects 
+        $stmt = $this->pdo->prepare("INSERT INTO projects 
     (project_name, groups_total, students_per_group)
  VALUES (:project_name, :groups_total, :students_per_group)");
         $stmt->bindParam(':project_name', $data['project_name']);
@@ -42,7 +42,7 @@ class ProjectManager
 
         if ($result) {
             for ($i = 1; $i <= $data['groups_total']; $i++) {
-                $stmt = $this->pdo->prepare("INSERT INTO Grouped ( name, project_id) VALUES (:name, :project_id)");
+                $stmt = $this->pdo->prepare("INSERT INTO project_groups ( name, project_id) VALUES (:name, :project_id)");
                 $groupName = 'Group #' . $i;
                 $stmt->bindParam(':name', $groupName);
                 $stmt->bindParam(':project_id', $lastId);
@@ -57,7 +57,7 @@ class ProjectManager
     public function getProject(string $id): ?Project
     {
         if (is_numeric($id)) {
-            $stmt = $this->pdo->prepare("SELECT * FROM Projects WHERE id = $id");
+            $stmt = $this->pdo->prepare("SELECT * FROM projects WHERE id = $id");
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
