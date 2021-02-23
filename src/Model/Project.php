@@ -19,33 +19,21 @@ class Project
     }
 
 
-    /**
-     * @return int|mixed
-     */
     public function getProjectId(): int
     {
         return $this->projectId;
     }
 
-    /**
-     * @return mixed|string
-     */
     public function getName(): string
     {
         return $this->projectName;
     }
 
-    /**
-     * @return int|mixed
-     */
     public function getGroupsTotal(): int
     {
         return $this->groupsTotal;
     }
 
-    /**
-     * @return int|mixed
-     */
     public function getStudentsPerGroup(): int
     {
         return $this->studentsPeGroup;

@@ -9,6 +9,10 @@ $projectManager = $container->getProjectManager();
 $theProject = $projectManager->getProject($_GET['id']) ?: header('Location: /');
 $groupsManager = $container->getGroupsManager();
 $groups = $groupsManager->getGroups($theProject->getProjectId());
+$studentManager = $container->getStudentManager();
+if (isset($_POST) && isset($_POST['new_student_name'])) $studentManager->addNewStudent($_POST['new_student_name'], $theProject->getProjectId());
+if (isset($_GET) && isset($_GET['action']) && ($_GET['action'] === 'delete') && isset($_GET['student_id'])) $studentManager->deleteStudent($_GET['student_id']);
+$students = $studentManager->getStudents($theProject->getProjectId());
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,15 +33,35 @@ $groups = $groupsManager->getGroups($theProject->getProjectId());
         <p>Students per group: <span class="text-red"><?= $theProject->getStudentsPerGroup() ?></span></p>
     </div>
     <div class="students-list">
-        <h1>Students</h1>
-        <div class="groups-control">
-            <div class="student-box">
-                <div class="box-header">
-                    Student Full name
-                </div>
-                ...
-            </div>
+        <h1>Students
+            <button onclick="openAddNewStudent()">Add new student</button>
+        </h1>
+        <div class="add-new-student" id="new_student">
+            <form method="post">
+                <label for="new_student_name">New student name:</label>
+                <input type="text" name="new_student_name" id="new_student_name"/>
+                <button class="d-block">Add</button>
+            </form>
         </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Student name</th>
+                <th>Student group</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($students as $student): ?>
+                <tr>
+                    <td><?= htmlspecialchars($student['name']) ?></td>
+
+                    <td><?= $groupsManager->getGroupedName($student['group_id']) ?: '-' ?></td>
+                    <td><a href="<?= $_SERVER['REQUEST_URI'] ?>&action=delete&student_id=<?= $student['id'] ?>">Delete</a></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
     <div class="groups">
         <h1>Groups</h1>
