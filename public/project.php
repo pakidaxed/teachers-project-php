@@ -104,13 +104,13 @@ $students = $studentManager->getStudents($theProject->getProjectId());
                                         <input type="hidden" name="group_id" value="<?= $group['id'] ?>">
                                         <input type="hidden" name="position" value="<?= $i ?>">
                                         <label>
-                                    <select name="student_id" id="student_id" onchange="this.form.submit()">
-                                        <option value="null">Assign student</option>
-                                        <?php foreach ($availableStudents as $availableStudent): ?>
-                                            <option value="<?= $availableStudent['id'] ?>"><?= $availableStudent['name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    </label>
+                                            <select name="student_id" id="student_id" onchange="this.form.submit()">
+                                                <option value="null">Assign student</option>
+                                                <?php foreach ($availableStudents as $availableStudent): ?>
+                                                    <option value="<?= $availableStudent['id'] ?>"><?= $availableStudent['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </label>
                                     </form>
                                 <?php endif; ?>
                             </td>
