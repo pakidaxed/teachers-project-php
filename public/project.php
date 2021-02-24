@@ -68,7 +68,7 @@ $availableStudents = array_filter($students, function ($student) {
 
                     <td><?= $groupsManager->getGroupName($student['group_id']) ?: '-' ?></td>
                     <td>
-                        <a href="<?= $_SERVER['REQUEST_URI'] ?>&action=delete&student_id=<?= $student['id'] ?>">Delete</a>
+                        <a href="/project.php?id=<?= $theProject->getProjectId() ?>&action=delete&student_id=<?= $student['id'] ?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
